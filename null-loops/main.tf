@@ -18,10 +18,16 @@ provider "null" {
 
 /* a list of local variables */
 locals {
-  avengers = {"ironman"= "hero"
-              "captain america"= "hero"
-              "thanos"= "villain"
-              "venom"= "anti-hero"
+  avengers = {
+            "Iron Man"= {
+                "power"= "money"
+                "enemy"= "Iron Monger"}
+               "Black Panther"= {
+                "power"= "vibranium suit"
+                "enemy"= "War Monger"}
+               "She-Hulk"= {
+                "power"= "super strength"
+                "enemy"= "Abomination"}
              }
 }
 
@@ -34,7 +40,8 @@ resource "null_resource" "avengers" {
   triggers = {
     name = each.key  // a special variable, "each" created by terraform
                        // the object has "each.key" and "each.value"
-    status= each.value
+    power= each.value.power
+    enemy = each.value.enemy
   }
 }
 
